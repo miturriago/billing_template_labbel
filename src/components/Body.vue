@@ -64,7 +64,6 @@
             <v-btn dark text @click="dialog = false"> Generate </v-btn>
           </v-toolbar-items>
           <v-menu bottom right offset-y>
-            
             <v-list>
               <v-list-item
                 v-for="(item, i) in items"
@@ -77,35 +76,43 @@
           </v-menu>
         </v-toolbar>
         <v-card-text>
-          <v-btn color="primary" dark class="ma-2" @click="dialog2 = !dialog2">
-            Open Dialog 2
-          </v-btn>
-          <v-tooltip right>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn class="ma-2" v-bind="attrs" v-on="on">
-                Tool Tip Activator
-              </v-btn>
-            </template>
-            Tool Tip
-          </v-tooltip>
           <v-list three-line subheader>
-            <v-subheader>User Controls</v-subheader>
+            <v-subheader>Client information</v-subheader>
             <v-list-item>
               <v-list-item-content>
-                <v-list-item-title>Content filtering</v-list-item-title>
+                <v-list-item-title>Addressed to</v-list-item-title>
                 <v-list-item-subtitle
-                  >Set the content filtering level to restrict apps that can be
-                  downloaded</v-list-item-subtitle
+                  >Full name of the person or company to which it is
+                  addressed</v-list-item-subtitle
                 >
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-model="message4"
+                    label="Full name"
+                    outlined
+                    clearable
+                  ></v-text-field>
+                </v-col>
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
               <v-list-item-content>
-                <v-list-item-title>Password</v-list-item-title>
+                <v-list-item-title>Identification</v-list-item-title>
                 <v-list-item-subtitle
-                  >Require password for purchase or use password to restrict
-                  purchase</v-list-item-subtitle
+                  >Select the type of identification and enter the
+                  number</v-list-item-subtitle
                 >
+                <v-col class="d-flex" cols="12" sm="2">
+                  <v-select :items="items" label="Type" outlined></v-select>
+                </v-col>
+                <v-col cols="12" sm="4">
+                  <v-text-field
+                    v-model="message4"
+                    label="Number"
+                    outlined
+                    clearable
+                  ></v-text-field>
+                </v-col>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -165,21 +172,8 @@ export default {
     notifications: false,
     sound: true,
     widgets: false,
-    items: [
-      {
-        title: "Click Me",
-      },
-      {
-        title: "Click Me",
-      },
-      {
-        title: "Click Me",
-      },
-      {
-        title: "Click Me 2",
-      },
-    ],
-    
+    items: ["NIT", "CC", "TI", "CE"],
+
     ecosystem: [
       {
         text: "Mauricio Maldonado",
