@@ -21,7 +21,7 @@
       </v-col>
 
       <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-3">Do we start?</h2>
+        <h2 class="headline font-weight-bold mb-3">We start?</h2>
 
         <v-row justify="center">
           <v-btn color="primary" class="ma-2" dark @click="dialog = true">
