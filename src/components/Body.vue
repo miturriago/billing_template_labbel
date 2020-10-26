@@ -11,7 +11,7 @@
       </v-col>
 
       <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">Welcome to BillLab</h1>
+        <h1 class="display-2 font-weight-bold mb-3">Welcome to BillApp</h1>
 
         <p class="subheading font-weight-regular">
           Application developed to create billing <br />
@@ -29,22 +29,6 @@
           </v-btn>
         </v-row>
       </v-col>
-
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-3">Developer</h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
-      </v-col>
     </v-row>
     <v-dialog
       v-model="dialog"
@@ -58,7 +42,7 @@
           <v-btn icon dark @click="dialog = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <v-toolbar-title>BillLap</v-toolbar-title>
+          <v-toolbar-title>BillApp</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn dark text @click="dialog = false"> Generate </v-btn>
@@ -77,7 +61,47 @@
         </v-toolbar>
         <v-card-text>
           <v-list three-line subheader>
+            <v-subheader>Date</v-subheader>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>Creation date </v-list-item-title>
+                <v-list-item-subtitle>Billing issue date</v-list-item-subtitle>
+                <v-col cols="12" sm="6">
+                  <v-menu
+                    ref="menu"
+                    v-model="menu"
+                    :close-on-content-click="false"
+                    :return-value.sync="date"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on, attrs2 }">
+                      <v-text-field
+                        v-model="date"
+                        label="Date"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs2"
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date" no-title scrollable>
+                      <v-spacer></v-spacer>
+                      <v-btn text @click="menu = false">Cancel</v-btn>
+                      <v-btn text color="primary" @click="$refs.menu.save(date)"
+                        >OK</v-btn
+                      >
+                    </v-date-picker>
+                  </v-menu>
+                </v-col>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-divider></v-divider>
+
             <v-subheader>Client information</v-subheader>
+
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>Addressed to</v-list-item-title>
@@ -116,6 +140,52 @@
               </v-list-item-content>
             </v-list-item>
           </v-list>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>Address</v-list-item-title>
+              <v-list-item-subtitle>Residence address</v-list-item-subtitle>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  v-model="message4"
+                  label="Address"
+                  outlined
+                  clearable
+                ></v-text-field>
+              </v-col>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>City / department</v-list-item-title>
+              <v-list-item-subtitle
+                >City and department</v-list-item-subtitle
+              >
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  v-model="message4"
+                  label="City / Department"
+                  outlined
+                  clearable
+                ></v-text-field>
+              </v-col>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>Phone Number</v-list-item-title>
+              <v-list-item-subtitle
+                >Contact phone number</v-list-item-subtitle
+              >
+              <v-col cols="12" sm="6">
+                <v-text-field
+                  v-model="message4"
+                  label="Phone number"
+                  outlined
+                  clearable
+                ></v-text-field>
+              </v-col>
+            </v-list-item-content>
+          </v-list-item>
           <v-divider></v-divider>
           <v-list three-line subheader>
             <v-subheader>General</v-subheader>
@@ -168,6 +238,8 @@ export default {
   name: "body",
 
   data: () => ({
+    menu: false,
+    date: new Date().toISOString().substr(0, 10),
     dialog: false,
     notifications: false,
     sound: true,
